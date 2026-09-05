@@ -34,3 +34,4 @@ The following are proposed targets for this fictional case study.
 ## Project documentation
 
 - [Stakeholders and responsibilities](docs/01-stakeholders.md)
+- [Project scope](docs/02-scope.md)
