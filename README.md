@@ -16,3 +16,16 @@ The company wants a standardized Azure Landing Zone supporting development, test
 The intended outcomes are faster environment provisioning, consistent security and governance, clearer cost ownership, and a controlled migration and operational handover.
 
 All organizational details and timelines are fictional assumptions for this architecture study.
+
+
+## Business objectives
+
+The following are proposed targets for this fictional case study.
+
+1. **Faster provisioning:** Provide a standard development environment within one business day after request approval, including the agreed security and monitoring settings.
+
+2. **Consistent security:** Every new environment must pass the agreed security checks before use. The results must be documented.
+
+3. **Cost transparency:** Produce a monthly report that assigns Azure costs to applications and responsible teams. Show shared-service costs separately and allocate them using an agreed rule.
+
+4. **Controlled migration and handover:** Migrate the employee portal according to an agreed plan. Complete functional and operational acceptance tests and obtain documented approval from the business and operations owners.
