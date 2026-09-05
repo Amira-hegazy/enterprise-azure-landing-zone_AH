@@ -29,3 +29,8 @@ The following are proposed targets for this fictional case study.
 3. **Cost transparency:** Produce a monthly report that assigns Azure costs to applications and responsible teams. Show shared-service costs separately and allocate them using an agreed rule.
 
 4. **Controlled migration and handover:** Migrate the employee portal according to an agreed plan. Complete functional and operational acceptance tests and obtain documented approval from the business and operations owners.
+
+
+## Project documentation
+
+- [Stakeholders and responsibilities](docs/01-stakeholders.md)
