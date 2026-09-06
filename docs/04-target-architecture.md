@@ -157,28 +157,34 @@ Verify that production deployments cannot proceed without the required approval.
 
 ## Current architecture overview
 
-This is a partial view of the proposed architecture. The complete parent management group hierarchy remains to be defined.
+The following diagrams show the proposed governance hierarchy for the shared platform and the employee portal.
 
-### Platform governance hierarchy
+The design assumes one existing Microsoft Entra tenant. No Azure resources have been deployed.
 
-The proposed platform management groups separate shared networking from central monitoring.
+### Top-level governance hierarchy
 
-Common platform policies are assigned to `mg-platform` and inherited by its child groups and subscriptions.
+`mg-enterprise` is the intermediate root management group for the target environment. It sits below the tenant root group.
 
-Additional networking policies can be assigned to `mg-connectivity`. Additional monitoring policies can be assigned to `mg-management`.
+Common organizational policies for this target environment are assigned to `mg-enterprise`.
 
-Arrows show governance hierarchy, not network connections.
+`mg-platform` groups the shared platform management groups.
+
+`mg-landing-zones` groups application management groups and provides a scope for common application policies. It includes `mg-corp` for workloads requiring corporate network connectivity.
+
+Policy assignments at the tenant root group are kept to a minimum to avoid unintentionally affecting subscriptions outside this target hierarchy.
 
 ```mermaid
 flowchart TB
-    PLATFORM["Management Group<br/>mg-platform"]
+    ROOT["Management Group<br/>Tenant root group"]
+    ROOT --> ENTERPRISE["Management Group<br/>mg-enterprise"]
 
-    PLATFORM --> CONNECTIVITY["Management Group<br/>mg-connectivity"]
-    PLATFORM --> MANAGEMENT["Management Group<br/>mg-management"]
+    ENTERPRISE --> PLATFORM["Management Group<br/>mg-platform"]
+    ENTERPRISE --> LANDINGZONES["Management Group<br/>mg-landing-zones"]
 
-    CONNECTIVITY --> C["Subscription<br/>sub-platform-connectivity"]
-    MANAGEMENT --> M["Subscription<br/>sub-platform-management"]
+    LANDINGZONES --> CORP["Management Group<br/>mg-corp"]
 ```
+
+The detailed platform and portal hierarchies are shown below. All arrows represent governance hierarchy, not network connections.
 
 ### Portal governance hierarchy
 
