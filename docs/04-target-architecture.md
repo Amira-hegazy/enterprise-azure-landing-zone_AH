@@ -67,4 +67,46 @@ Central monitoring requires ongoing maintenance. Log collection and retention mu
 
 The log sources, retention periods, alert thresholds, and notification recipients still need to be defined.
 
+## Pilot application subscriptions
+
+The employee portal uses a separate subscription for each environment.
+
+### Proposed environments
+
+- `sub-app-portal-dev`: Development of new features and application changes.
+- `sub-app-portal-test`: Testing and acceptance of release candidates.
+- `sub-app-portal-prod`: Live employee portal used by employees.
+
+### Ownership and access
+
+The application team manages application resources within the agreed platform governance rules.
+
+Access permissions and deployment identities are scoped to each environment.
+
+Development and test permissions do not grant access to production. Production deployments require explicit approval.
+
+### Rationale
+
+Separate development, test, and production to support environment-specific access control and clear cost ownership.
+
+This separation supports the requirement that changes in non-production must not directly modify production resources.
+
+### Trade-off
+
+Separate environments require additional administration and may duplicate resources.
+
+Reusable Terraform configuration can help maintain consistent settings across environments.
+
+### Open decisions
+
+Application hosting services, detailed role assignments, and network access rules still need to be defined.
+
+The HR integration and test-data approach for non-production environments must also be agreed.
+
+### Planned verification
+
+Verify that development and test identities cannot modify production resources.
+
+Verify that production deployments cannot proceed without the required approval.
+
 Log collection and alert delivery must be tested before operational acceptance.
