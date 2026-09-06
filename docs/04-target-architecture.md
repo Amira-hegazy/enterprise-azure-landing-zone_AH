@@ -197,3 +197,47 @@ flowchart TB
     CORP --> TEST["Subscription<br/>sub-app-portal-test"]
     CORP --> PROD["Subscription<br/>sub-app-portal-prod"]
 ```
+
+
+## Proposed network topology
+
+The proposed design uses a hub-and-spoke network topology.
+No network resources have been deployed.
+
+### Hub network
+
+One shared virtual network is planned in
+`sub-platform-connectivity`.
+
+The platform team manages this network. It provides the
+central point for the planned connection to the on-premises
+data centre.
+
+### Spoke networks
+
+Each portal environment has its own virtual network:
+
+- Development in `sub-app-portal-dev`.
+- Test in `sub-app-portal-test`.
+- Production in `sub-app-portal-prod`.
+
+Each spoke is planned to connect to the hub.
+This does not automatically permit communication between
+environments. Routing and access rules must be explicitly designed.
+
+### Rationale and trade-off
+
+Central connectivity can be shared across application environments.
+However, the hub becomes a shared dependency and requires careful
+operation and resilience planning.
+
+### Open decisions
+
+- Connection type between Azure and the data centre.
+- Network address ranges, routing, DNS, and security controls.
+- Permitted access to the HR system from each environment,
+  including the non-production test-data approach.
+
+### Reference
+
+[Microsoft: Hub-spoke network topology](https://learn.microsoft.com/en-us/azure/architecture/networking/architecture/hub-spoke)
