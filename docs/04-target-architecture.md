@@ -237,6 +237,28 @@ operation and resilience planning.
 - Network address ranges, routing, DNS, and security controls.
 - Permitted access to the HR system from each environment,
   including the non-production test-data approach.
+### High-level network diagram
+
+Lines represent planned network connectivity, not governance
+hierarchy or access permissions.
+
+```mermaid
+flowchart TB
+    DC["On-premises data centre<br/>Existing HR system"]
+    HUB["Hub VNet<br/>sub-platform-connectivity"]
+
+    DC ---|"Connection type TBD"| HUB
+
+    HUB --- DEV["Development spoke VNet<br/>sub-app-portal-dev"]
+    HUB --- TEST["Test spoke VNet<br/>sub-app-portal-test"]
+    HUB --- PROD["Production spoke VNet<br/>sub-app-portal-prod"]
+```
+
+TBD means "to be determined".
+
+Gateways, routing, DNS, and security controls are not shown
+and still need to be designed. Non-production access to the
+HR system remains an open decision.
 
 ### Reference
 
