@@ -153,3 +153,32 @@ The HR integration and test-data approach for non-production environments must a
 Verify that development and test identities cannot modify production resources.
 
 Verify that production deployments cannot proceed without the required approval.
+
+
+## Current architecture overview
+
+This is a partial view of the proposed architecture. The complete parent management group hierarchy remains to be defined.
+
+### Shared platform subscriptions
+
+The box below is a logical grouping, not an Azure management group.
+
+```mermaid
+flowchart LR
+    subgraph PLATFORM["Shared platform - logical grouping"]
+        C["Subscription<br/>sub-platform-connectivity"]
+        M["Subscription<br/>sub-platform-management"]
+    end
+```
+
+### Portal governance hierarchy
+
+Arrows show management group membership, not network connections.
+
+```mermaid
+flowchart TB
+    CORP["Management Group<br/>mg-corp"]
+    CORP --> DEV["Subscription<br/>sub-app-portal-dev"]
+    CORP --> TEST["Subscription<br/>sub-app-portal-test"]
+    CORP --> PROD["Subscription<br/>sub-app-portal-prod"]
+```
