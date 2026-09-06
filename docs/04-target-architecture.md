@@ -31,7 +31,9 @@ A separate subscription requires additional administration and coordination betw
 
 ### Open decisions
 
-The connection type and detailed network topology still need to be selected.
+Site-to-site VPN is the provisional connectivity choice; see
+[ADR 001](decisions/001-hybrid-connectivity.md).
+Detailed network configuration and validation remain open.
 
 
 
@@ -112,48 +114,6 @@ Verify that production deployments cannot proceed without the required approval.
 Log collection and alert delivery must be tested before operational acceptance.
 
 
-## Pilot application subscriptions
-
-The employee portal uses a separate subscription for each environment.
-
-### Proposed environments
-
-- `sub-app-portal-dev`: Development of new features and application changes.
-- `sub-app-portal-test`: Testing and acceptance of release candidates.
-- `sub-app-portal-prod`: Live employee portal used by employees.
-
-### Ownership and access
-
-The application team manages application resources within the agreed platform governance rules.
-
-Access permissions and deployment identities are scoped to each environment.
-
-Development and test permissions do not grant access to production. Production deployments require explicit approval.
-
-### Rationale
-
-Separate development, test, and production to support environment-specific access control and clear cost ownership.
-
-This separation supports the requirement that changes in non-production must not directly modify production resources.
-
-### Trade-off
-
-Separate environments require additional administration and may duplicate resources.
-
-Reusable Terraform configuration can help maintain consistent settings across environments.
-
-### Open decisions
-
-Application hosting services, detailed role assignments, and network access rules still need to be defined.
-
-The HR integration and test-data approach for non-production environments must also be agreed.
-
-### Planned verification
-
-Verify that development and test identities cannot modify production resources.
-
-Verify that production deployments cannot proceed without the required approval.
-
 
 ## Current architecture overview
 
@@ -186,6 +146,29 @@ flowchart TB
 
 The detailed platform and portal hierarchies are shown below. All arrows represent governance hierarchy, not network connections.
 
+### Platform governance hierarchy
+
+The proposed platform management groups separate shared networking
+from central monitoring.
+
+Common platform policies are assigned to `mg-platform` and inherited
+by its child groups and subscriptions.
+
+Additional networking policies can be assigned to `mg-connectivity`.
+Additional monitoring policies can be assigned to `mg-management`.
+
+Arrows show governance hierarchy, not network connections.
+
+```mermaid
+flowchart TB
+    PLATFORM["Management Group<br/>mg-platform"]
+
+    PLATFORM --> CONNECTIVITY["Management Group<br/>mg-connectivity"]
+    PLATFORM --> MANAGEMENT["Management Group<br/>mg-management"]
+
+    CONNECTIVITY --> C["Subscription<br/>sub-platform-connectivity"]
+    MANAGEMENT --> M["Subscription<br/>sub-platform-management"]
+```
 ### Portal governance hierarchy
 
 Arrows show management group membership, not network connections.
@@ -233,10 +216,12 @@ operation and resilience planning.
 
 ### Open decisions
 
-- Connection type between Azure and the data centre.
+- Validation and final approval of the provisional site-to-site VPN choice..
 - Network address ranges, routing, DNS, and security controls.
 - Permitted access to the HR system from each environment,
   including the non-production test-data approach.
+
+  
 ### High-level network diagram
 
 Lines represent planned network connectivity, not governance
@@ -247,14 +232,16 @@ flowchart TB
     DC["On-premises data centre<br/>Existing HR system"]
     HUB["Hub VNet<br/>sub-platform-connectivity"]
 
-    DC ---|"Connection type TBD"| HUB
+    DC ---|"Site-to-site VPN (provisional)"| HUB
 
     HUB --- DEV["Development spoke VNet<br/>sub-app-portal-dev"]
     HUB --- TEST["Test spoke VNet<br/>sub-app-portal-test"]
     HUB --- PROD["Production spoke VNet<br/>sub-app-portal-prod"]
 ```
 
-TBD means "to be determined".
+The VPN choice is provisional and subject to validation.
+See [ADR 001: Hybrid connectivity](decisions/001-hybrid-connectivity.md).
+No connection has been deployed or tested.
 
 Gateways, routing, DNS, and security controls are not shown
 and still need to be designed. Non-production access to the
