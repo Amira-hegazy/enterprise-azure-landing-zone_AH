@@ -21,6 +21,37 @@ The platform team manages the shared networking resources.
 
 Application teams use the agreed network connections but are not granted permissions to modify the central networking resources.
 
+### Hub-to-spoke connectivity
+
+VNet peering is proposed for these connections:
+
+- Hub network to the development spoke network.
+- Hub network to the test spoke network.
+- Hub network to the production spoke network.
+
+No direct peering is planned between development, test,
+and production spoke networks.
+
+Peering provides network connectivity but does not replace
+network security rules. Permitted traffic must be explicitly
+defined and unauthorized traffic blocked.
+
+For approved access to on-premises systems through the shared
+VPN gateway, gateway transit settings, routing, and access
+controls must be designed and validated separately.
+
+Access to the HR system from development and test remains
+an open decision.
+
+Before operational acceptance, test both permitted connections
+and the blocking of prohibited connections, including
+unauthorized access from non-production to production.
+
+No peering connections have been deployed or tested.
+
+[Microsoft: VNet peering](https://learn.microsoft.com/en-us/azure/virtual-network/virtual-network-peering-overview)
+
+
 ### Rationale
 
 Separate shared networking from application resources to establish clear ownership and manage access permissions and shared network costs independently.
