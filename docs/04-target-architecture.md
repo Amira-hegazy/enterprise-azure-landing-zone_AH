@@ -159,16 +159,25 @@ Verify that production deployments cannot proceed without the required approval.
 
 This is a partial view of the proposed architecture. The complete parent management group hierarchy remains to be defined.
 
-### Shared platform subscriptions
+### Platform governance hierarchy
 
-The box below is a logical grouping, not an Azure management group.
+The proposed platform management groups separate shared networking from central monitoring.
+
+Common platform policies are assigned to `mg-platform` and inherited by its child groups and subscriptions.
+
+Additional networking policies can be assigned to `mg-connectivity`. Additional monitoring policies can be assigned to `mg-management`.
+
+Arrows show governance hierarchy, not network connections.
 
 ```mermaid
-flowchart LR
-    subgraph PLATFORM["Shared platform - logical grouping"]
-        C["Subscription<br/>sub-platform-connectivity"]
-        M["Subscription<br/>sub-platform-management"]
-    end
+flowchart TB
+    PLATFORM["Management Group<br/>mg-platform"]
+
+    PLATFORM --> CONNECTIVITY["Management Group<br/>mg-connectivity"]
+    PLATFORM --> MANAGEMENT["Management Group<br/>mg-management"]
+
+    CONNECTIVITY --> C["Subscription<br/>sub-platform-connectivity"]
+    MANAGEMENT --> M["Subscription<br/>sub-platform-management"]
 ```
 
 ### Portal governance hierarchy
