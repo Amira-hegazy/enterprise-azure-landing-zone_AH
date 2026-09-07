@@ -87,3 +87,65 @@ and enforcement controls remain to be defined.
 Actual HR integration requires separately planned and approved
 validation before operational acceptance. This does not grant
 development or test access to the live HR system.
+
+
+## NET-03: Restrict production portal access to the HR system
+
+### Rule
+
+For portal application traffic, only the designated production
+portal backend may initiate connections to the HR interface
+needed for employee profile retrieval.
+
+The permitted source, destination endpoints, protocols, and ports
+must be explicitly approved before access is enabled.
+Other portal-to-HR connections must be blocked.
+
+The development and test restrictions in NET-02 remain unchanged.
+
+### Rationale
+
+Support the portal's required HR integration while limiting
+unnecessary network access and exposure of employee information.
+
+### Required application and identity controls
+
+The backend must authenticate to the HR interface.
+Its HR permissions must allow only the required read operations
+for department and work-contact information, not HR data changes.
+
+The portal must authenticate each employee and enforce access
+to that employee's own profile on every request.
+Changing a requested employee identifier must not expose
+another employee's information.
+
+These checks require application and identity controls.
+Network rules alone cannot enforce read-only or own-profile access.
+
+### Connection protection
+
+HR requests must use encrypted transport.
+The site-to-site VPN remains a provisional connectivity choice;
+see [ADR 001](decisions/001-hybrid-connectivity.md).
+
+The HR interface must not be exposed publicly for this integration.
+
+### Planned verification
+
+- Verify successful permitted profile requests from the production backend.
+- Verify that prohibited sources, destinations, and ports are blocked.
+- Verify rejection of unauthorized profile requests and HR write operations.
+- Confirm that development and test cannot access the live HR system.
+- Record the controls tested and the observed results.
+
+Tests involving the live HR system require prior approval
+and safeguards against operational disruption.
+
+### Open details and evidence status
+
+The HR interface, endpoints, protocols, ports, authentication method,
+identity-to-employee mapping, permissions, and enforcement controls
+remain to be designed and approved.
+
+No production HR connection or related access controls have been
+implemented or tested in this case study.
