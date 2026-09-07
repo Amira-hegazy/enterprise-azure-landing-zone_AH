@@ -232,6 +232,13 @@ flowchart TB
 The proposed design uses a hub-and-spoke network topology.
 No network resources have been deployed.
 
+Proposed example VNet address ranges are documented in the
+[IP address plan](06-ip-address-plan.md).
+
+These ranges are not approved for deployment.
+Existing network allocations and capacity requirements must
+be checked before implementation.
+
 ### Hub network
 
 One shared virtual network is planned in
