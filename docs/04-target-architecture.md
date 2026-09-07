@@ -47,6 +47,10 @@ A simulated HR interface with synthetic employee records is
 planned for these environments.
 See [NET-02](05-network-access.md#net-02-block-non-production-access-to-the-live-hr-system).
 
+The proposed production portal access restrictions are documented
+in [NET-03](05-network-access.md#net-03-restrict-production-portal-access-to-the-hr-system).
+Implementation details and validation remain open.
+
 Before operational acceptance, test both permitted connections
 and the blocking of prohibited connections, including
 unauthorized access from non-production to production.
