@@ -40,8 +40,12 @@ For approved access to on-premises systems through the shared
 VPN gateway, gateway transit settings, routing, and access
 controls must be designed and validated separately.
 
-Access to the HR system from development and test remains
-an open decision.
+Under the proposed design, development and test workloads must
+not connect to the live on-premises HR system.
+
+A simulated HR interface with synthetic employee records is
+planned for these environments.
+See [NET-02](05-network-access.md#net-02-block-non-production-access-to-the-live-hr-system).
 
 Before operational acceptance, test both permitted connections
 and the blocking of prohibited connections, including
@@ -132,9 +136,15 @@ Reusable Terraform configuration can help maintain consistent settings across en
 
 ### Open decisions
 
-Application hosting services, detailed role assignments, and network access rules still need to be defined.
+Application hosting services, detailed role assignments, and the
+implementation of network access controls still need to be defined.
 
-The HR integration and test-data approach for non-production environments must also be agreed.
+The proposed non-production HR access restrictions and synthetic
+test-data approach are documented in
+[NET-02](05-network-access.md#net-02-block-non-production-access-to-the-live-hr-system).
+
+The simulator design and production HR integration details,
+including access permissions and validation, remain open.
 
 ### Planned verification
 
@@ -247,11 +257,12 @@ operation and resilience planning.
 
 ### Open decisions
 
-- Validation and final approval of the provisional site-to-site VPN choice..
+- Validation and final approval of the provisional site-to-site VPN choice.
 - Network address ranges, routing, DNS, and security controls.
-- Permitted access to the HR system from each environment,
-  including the non-production test-data approach.
-
+- Production HR integration details, access permissions, and validation.
+- Design of the simulated HR interface and implementation of the
+  non-production restrictions defined in
+  [NET-02](05-network-access.md#net-02-block-non-production-access-to-the-live-hr-system).
   
 ### High-level network diagram
 
@@ -275,8 +286,12 @@ See [ADR 001: Hybrid connectivity](decisions/001-hybrid-connectivity.md).
 No connection has been deployed or tested.
 
 Gateways, routing, DNS, and security controls are not shown
-and still need to be designed. Non-production access to the
-HR system remains an open decision.
+and still need to be designed.
+
+Under the proposed design, development and test workloads must
+not connect to the live HR system. A simulated HR interface with
+synthetic employee records is planned; see
+[NET-02](05-network-access.md#net-02-block-non-production-access-to-the-live-hr-system).
 
 ### Reference
 
