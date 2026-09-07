@@ -39,3 +39,4 @@ The following are proposed targets for this fictional case study.
 - [Target architecture](docs/04-target-architecture.md)
 - [ADR 001: Hybrid connectivity](docs/decisions/001-hybrid-connectivity.md)
 - [Network access rules](docs/05-network-access.md)
+- [IP address plan](docs/06-ip-address-plan.md)
