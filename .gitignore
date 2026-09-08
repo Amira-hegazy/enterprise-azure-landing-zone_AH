@@ -1,0 +1,20 @@
+# Downloaded Terraform providers and modules
+.terraform/
+
+# Terraform state files and backups
+*.tfstate
+*.tfstate.*
+
+# Saved plans named tfplan or ending in .tfplan
+tfplan
+*.tfplan
+
+# Local input values that may contain sensitive information
+*.tfvars
+*.tfvars.json
+
+# Terraform crash logs
+crash.log
+crash.*.log
+
+# Keep .terraform.lock.hcl in version control.
