@@ -40,3 +40,36 @@ The following are proposed targets for this fictional case study.
 - [ADR 001: Hybrid connectivity](docs/decisions/001-hybrid-connectivity.md)
 - [Network access rules](docs/05-network-access.md)
 - [IP address plan](docs/06-ip-address-plan.md)
+
+## Terraform example and continuous integration
+
+The [hub Terraform example](infra/terraform/hub) defines a resource group,
+a hub virtual network, and a GatewaySubnet.
+
+This is a small infrastructure-code example, not a complete landing-zone
+deployment. Address ranges remain provisional and require validation
+before deployment.
+
+The [Terraform checks workflow](.github/workflows/terraform-checks.yml)
+runs automatically on pushes to master and pull requests targeting master.
+It can also be started manually.
+
+The workflow performs these steps:
+
+- Checks formatting with `terraform fmt -check -diff`.
+- Downloads the required provider using
+  `terraform init -backend=false -input=false`, without initializing a backend.
+- Checks configuration validity with `terraform validate -no-color`.
+- Makes the provider lockfile available as a downloadable artifact for seven days.
+
+The [committed lockfile](infra/terraform/hub/.terraform.lock.hcl)
+records the selected provider version and package checksums.
+
+On 8 September 2026, CI run #3 passed for commit `e2cbaed`.
+Its initialization log confirmed reuse of AzureRM version `4.81.0`
+from the committed lockfile.
+
+No Azure resources have been deployed in this case study.
+The workflow does not log in to Azure or run Terraform plan or apply.
+Passing these checks does not prove successful deployment,
+network connectivity, security enforcement, or HR integration.
